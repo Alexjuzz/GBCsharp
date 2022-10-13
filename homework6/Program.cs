@@ -59,13 +59,6 @@ void PrintArray(int[,] array)
 
 
 //==================================================================================================================
-// Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
-// Например, задан массив:
-// 1 4 7 2
-// 5 9 2 3
-// 8 4 2 4
-// 5 2 6 7
-// Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 
 int[,] SortArrayLines(int[,] array)
 {
@@ -96,6 +89,15 @@ int[,] SortArrayLines(int[,] array)
 // PrintArray(array);
 
 //==================================================================================================================
+//==================================================================================================================
+// Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
+// Например, задан массив:
+// 1 4 7 2
+// 5 9 2 3
+// 8 4 2 4
+// 5 2 6 7
+// Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
+
 
 void minValueinLineofArray(int[,] array)
 {
@@ -172,9 +174,188 @@ int[,] SpiralArray()
     return spiralArray;
 }
 
-PrintArray(SpiralArray());                       // Проверка задания. Спиральный массив.
+// PrintArray(SpiralArray());                       // Проверка задания. Спиральный массив.
+
+
+//==================================================================================================================
+
+//Задача 59: Из двумерного массива целых чисел удалить строку и столбец, на пересечении которых расположен наименьший элемент.
 
 
 
+int[,] DeleteLineAndColum(int[,] array, int line, int colum)
+{
+    int[,] newArray;
+    int lineCorrect = 0;
+    int columCorrect = 0;
+    newArray = new int[array.GetLength(0) - 1, array.GetLength(1) - 1];
+
+    for (int i = 0; i < array.GetLength(0) - 1; i++)
+    {
+        columCorrect = 0;
+        if (line == i) { lineCorrect++; }
+
+        for (int j = 0; j < array.GetLength(1) - 1; j++)
+        {
+            if (colum == j) { columCorrect++; }
+            newArray[i, j] = array[i + lineCorrect, j + columCorrect];
+        }
+    }
+    return newArray;
+}
+
+// int[,] testArray = FillArray(CreateTwiceArray());                            // Проверка задания.
+// PrintArray(testArray);
+// int[,] testArray2 = DeleteLineAndColum(testArray, 0, 0);
+// Console.WriteLine();
+// PrintArray(testArray2);
 
 
+// Задача 60 . Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
+// Массив размером 2 x 2 x 2
+// 66(0,0,0) 25(0,1,0)
+// 34(1,0,0) 41(1,1,0)
+// 27(0,0,1) 90(0,1,1)
+// 26(1,0,1) 55(1,1,1)
+
+
+
+int[,,] CreateTrippleArray()
+{
+
+    Console.Write("Введите размер Лисирв ");
+    int a = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Введите количество Строк ");
+    int b = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Введите количество столбцов ");
+    int c = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine();
+    int[,,] array = new int[a, b, c];
+
+    return array;
+}
+
+
+bool CheckValues(int[,,] array, int value)
+{
+    bool b = false;
+
+    int lists = array.GetLength(0);
+    int lineIndex = array.GetLength(1);
+    int columIndex = array.GetLength(2);
+    for (int i = 0; i < lists; i++)
+    {
+        for (int j = 0; j < lineIndex; j++)
+        {
+            for (int k = 0; k < columIndex; k++)
+            {
+                if (array[i, j, k] == value)
+                {
+                    return b = true;
+                }
+            }
+        }
+
+    }
+    return b;
+
+}
+
+int[,,] FillTripleArrayRandom(int[,,] array, int minValue = 10, int maxValue = 100)
+{
+    maxValue++;
+    int coutn = 0;
+    int lists = array.GetLength(0);
+    int lineIndex = array.GetLength(0);
+    int columIndex = array.GetLength(0);
+
+    int[,,] arrayResult = new int[lists, lineIndex, columIndex];
+
+    var random = new Random();
+    for (int i = 0; i < lists; i++)
+    {
+
+        for (int j = 0; j < lineIndex; j++)
+        {
+            for (int c = 0; c < columIndex; c++)
+            {
+                coutn = 0;
+                int value = random.Next(minValue, maxValue);
+
+                while (CheckValues(arrayResult, value))
+                {
+                    value = random.Next(minValue, maxValue);
+
+                }
+                arrayResult[i, j, c] = value;
+            }
+
+        }
+    }
+
+
+    return arrayResult;
+}
+
+
+
+void pr(int[,,] array)                   
+{
+    int a = array.GetLength(0);
+    int b = array.GetLength(1);
+    int c = array.GetLength(2);
+
+    for (int i = 0; i < a; i++)
+    {
+        for (int j = 0; j < b; j++)
+        {
+            for (int k = 0; k < c; k++)
+            {
+                Console.Write($"{array[i, j, k]}  +  ({i} {j} {k})");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+// int[,,] abas = CreateTrippleArray();         // проверка задания. 
+// abas = FillTripleArrayRandom(abas);          //ВНИМАНИЕ - если задать Обьем массива больше чем чисел которые может сгенерировать Рандом то будет вечный поиск числа.(зацикливание)
+// pr(abas);
+
+
+//==================================================================================================================
+// Задача 61: Показать треугольник Паскаля. *Сделать вывод в виде равнобедренного треугольника.
+
+// Не понимаю какой алгоритм его вычесления.
+
+
+// //Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+// Например, даны 2 матрицы:
+// 2 4 | 3 4
+// 3 2 | 3 3
+// Результирующая матрица будет:
+// 18 20
+// 15 18
+
+// int [,] matrix1 ={{2,4},{3,2}};
+// int [,] matrix2 = {{3,4},{3,3}};
+
+// int[,] MultiplicationMatrix(int [,] matrix, int [,] matrix2){
+//     int [,] resultMatrix = new int[matrix.GetLength(0),matrix2.GetLength(1)];
+//         int line = matrix.GetLength(0);
+//         int col = matrix2.GetLength(1);
+//     for(int i = 0; i < line;i++)
+//     {
+//                 for (int j = 0; j < col; j++)
+//                 {
+//                     for (int k = 0; k < col; k++)
+//                     {
+//                         resultMatrix[i,j] += matrix[i,k] * matrix2[k,j];
+//                     }
+//                 }
+//     }
+
+
+//     return resultMatrix;
+// }
+
+// PrintArray(MultiplicationMatrix(matrix1,matrix2));

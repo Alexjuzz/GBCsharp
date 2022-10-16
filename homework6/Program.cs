@@ -336,26 +336,26 @@ void pr(int[,,] array)
 // 18 20
 // 15 18
 
-// int [,] matrix1 ={{2,4},{3,2}};
-// int [,] matrix2 = {{3,4},{3,3}};
+int [,] matrix1 ={{2,4},{3,2}};
+int [,] matrix2 = {{3,4},{3,3}};
 
-// int[,] MultiplicationMatrix(int [,] matrix, int [,] matrix2){
-//     int [,] resultMatrix = new int[matrix.GetLength(0),matrix2.GetLength(1)];
-//         int line = matrix.GetLength(0);
-//         int col = matrix2.GetLength(1);
-//     for(int i = 0; i < line;i++)
-//     {
-//                 for (int j = 0; j < col; j++)
-//                 {
-//                     for (int k = 0; k < col; k++)
-//                     {
-//                         resultMatrix[i,j] += matrix[i,k] * matrix2[k,j];
-//                     }
-//                 }
-//     }
+int[,] MultiplicationMatrix(int [,] matrix, int [,] matrix2){
+    int [,] resultMatrix = new int[matrix.GetLength(0),matrix2.GetLength(1)];
+        int line = matrix.GetLength(0);
+        int col = matrix2.GetLength(1);
+    for(int i = 0; i < line;i++)
+    {
+                for (int j = 0; j < col; j++)
+                {
+                    for (int k = 0; k < col; k++)
+                    {
+                        resultMatrix[i,j] += matrix[i,k] * matrix2[k,j];
+                    }
+                }
+    }
 
 
-//     return resultMatrix;
-// }
+    return resultMatrix;
+}
 
-// PrintArray(MultiplicationMatrix(matrix1,matrix2));
+// PrintArray(MultiplicationMatrix(matrix1,matrix2));   Проверка умножения матриц.
